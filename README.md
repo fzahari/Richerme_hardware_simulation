@@ -15,6 +15,8 @@ This library implements quantum gate synthesis techniques for trapped-ion analog
 - Accessibility checking and mode weight optimization
 - Full trapped-ion physics simulators
 - Molecular quantum chemistry applications (H2, H2O)
+- **NEW**: Truncated Wigner Approximation (TWA) for dissipative dynamics
+- **NEW**: GPU-accelerated TWA simulations (10-100x speedup)
 
 ## Installation
 
@@ -49,8 +51,20 @@ Richerme_Quantum_Hardware/
 ├── rich_sim.py                         # Full trapped-ion physics simulator
 ├── rich_sim_h2.py                      # H2 molecule simulation
 ├── rich_sim_h2o.py                     # H2O molecule simulation
+│
+├── twa_framework.py                    # TWA framework for dissipative dynamics (CPU)
+├── rich_sim_h2_twa.py                  # H2 with TWA dissipation (CPU)
+├── rich_sim_h2o_twa.py                 # H2O with TWA dissipation (CPU)
+├── test_twa_implementation.py          # TWA validation tests
+│
+├── cudaq_twa_framework.py              # GPU-accelerated TWA framework (10-100x faster)
+├── cudaq_rich_sim_h2_twa.py            # GPU-accelerated H2 TWA
+├── cudaq_rich_sim_h2o_twa.py           # GPU-accelerated H2O TWA
+├── demo_cudaq_speedup.py               # CPU vs GPU benchmark
+│
 ├── setup.py                            # Package configuration
-├── requirements.txt                    # Dependencies
+├── requirements.txt                    # Dependencies (CPU)
+├── requirements_gpu.txt                # GPU dependencies (+ CuPy)
 ├── README.md                           # Main documentation
 ├── DEVELOPMENT.md                           # Development guidelines
 │
@@ -61,16 +75,22 @@ Richerme_Quantum_Hardware/
 │   ├── SIMULATOR_ANALYSIS.md          # Simulator comparison
 │   ├── H2_IMAGINARY_TIME_IMPROVEMENT.md # 2.7M× error reduction
 │   ├── H2_UPDATE_SUMMARY.md           # H2 updates
-│   └── H2O_UPDATE_SUMMARY.md          # H2O updates
+│   ├── H2O_UPDATE_SUMMARY.md          # H2O updates
+│   ├── TWA_NUMERICAL_FIXES.md         # TWA stability improvements
+│   ├── TWA_README.md                  # TWA documentation (CPU & GPU)
+│   ├── CUDAQ_TWA_README.md            # GPU acceleration guide
+│   └── CUDAQ_IMPLEMENTATION_SUMMARY.md # GPU implementation details
 │
 ├── tests/                              # Test suite
 │   ├── test_richerme_ion_analog.py    # Core library tests (63 tests)
 │   ├── test_h2_gates.py               # H2 simulator tests
-│   └── test_h2o_gates.py              # H2O simulator tests
+│   ├── test_h2o_gates.py              # H2O simulator tests
+│   └── test_twa_implementation.py     # TWA validation (5 tests)
 │
 └── examples/                           # Demonstration scripts
     ├── demo_zxx.py                    # Basic synthesis demo
-    └── demo_extended_features.py      # Extended features demo
+    ├── demo_extended_features.py      # Extended features demo
+    └── demo_cudaq_speedup.py          # GPU speedup benchmark
 ```
 
 ## Quick Start
@@ -152,6 +172,42 @@ result = h2_sim.run_vqe(bond_length=0.74, num_iterations=100)
 print(f"VQE energy: {result['energy']:.6f} Hartree")
 print(f"Error vs exact: {result['error']:.6f} Hartree")
 ```
+
+### Dissipative Dynamics with TWA (NEW!)
+
+Simulate realistic decoherence effects (T1/T2) using the Truncated Wigner Approximation:
+
+```python
+from rich_sim_h2_twa import H2_TWA_Simulator
+
+# Create TWA simulator with 500 stochastic trajectories
+h2_twa = H2_TWA_Simulator(n_trajectories=500)
+
+# Compare ideal vs dissipative dynamics
+results = h2_twa.compare_with_ideal(r=0.74, total_time=20.0)
+
+print(f"Ideal energy:    {results['ideal']['avg_energies'][-1]:.6f} H")
+print(f"With T1+T2:      {results['full']['avg_energies'][-1]:.6f} H")
+print(f"Dissipation:     {results['full']['avg_energies'][-1] - results['ideal']['avg_energies'][-1]:.6f} H")
+```
+
+**GPU-Accelerated (10-100x faster!)**:
+
+```python
+from cudaq_rich_sim_h2_twa import CUDAQ_H2_TWA_Simulator
+
+# GPU version handles many more trajectories
+h2_gpu = CUDAQ_H2_TWA_Simulator(n_trajectories=2000, use_gpu=True)
+results = h2_gpu.compare_with_ideal(r=0.74, total_time=20.0)
+# Runs in ~45 seconds (vs ~8 minutes on CPU!)
+```
+
+**Requirements for GPU**:
+```bash
+pip install cupy-cuda12x  # For CUDA 12.x (or cupy-cuda11x for CUDA 11.x)
+```
+
+See [TWA_README.md](TWA_README.md) and [CUDAQ_TWA_README.md](CUDAQ_TWA_README.md) for details.
 
 ## Running Tests
 

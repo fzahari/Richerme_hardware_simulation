@@ -1,0 +1,24 @@
+# GPU-Accelerated TWA Requirements
+# Install with: pip install -r requirements_gpu.txt
+
+# Core dependencies (same as CPU version)
+numpy>=1.20.0
+scipy>=1.7.0
+matplotlib>=3.3.0
+
+# GPU acceleration (CuPy)
+# Choose ONE based on your CUDA version:
+
+# For CUDA 12.x (most recent)
+cupy-cuda12x>=12.0.0
+
+# For CUDA 11.x (uncomment if using CUDA 11.x, comment line above)
+# cupy-cuda11x>=11.0.0
+
+# Optional: Jupyter for interactive notebooks
+# jupyter>=1.0.0
+# ipython>=7.0.0
+
+# Development/testing
+# pytest>=6.0.0
+# pytest-benchmark>=3.4.0

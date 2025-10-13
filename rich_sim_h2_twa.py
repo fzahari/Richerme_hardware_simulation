@@ -53,8 +53,8 @@ class H2_TWA_Simulator:
         print(f"Initialized H2 TWA simulator:")
         print(f"  Qubits: {self.n_qubits}")
         print(f"  Trajectories: {self.n_trajectories}")
-        print(f"  T1 = {self.hardware.T1} s")
-        print(f"  T2 = {self.hardware.T2} s")
+        print(f"  T1 = {self.hardware.T1_SI} s")
+        print(f"  T2 = {self.hardware.T2_SI} s")
 
     def build_h2_classical_hamiltonian(self, r: float, s: np.ndarray) -> float:
         """

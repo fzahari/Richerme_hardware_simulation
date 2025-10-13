@@ -65,6 +65,62 @@ target_include_directories(richerme_ion_analog
         ${CMAKE_CURRENT_SOURCE_DIR}
 )
 
+# TWA Framework library
+add_library(twa_framework
+    twa_framework.cpp
+    twa_framework.hpp
+)
+
+# H2 TWA simulator library
+add_library(h2_twa
+    h2_twa_simulator.cpp
+    h2_twa_simulator.hpp
+)
+
+target_link_libraries(h2_twa
+    PUBLIC
+        twa_framework
+)
+
+# H2O TWA simulator library
+add_library(h2o_twa
+    h2o_twa_simulator.cpp
+    h2o_twa_simulator.hpp
+)
+
+target_link_libraries(h2o_twa
+    PUBLIC
+        twa_framework
+)
+
+# Optional: OpenMP for CPU parallelization
+find_package(OpenMP)
+if(OpenMP_CXX_FOUND)
+    target_link_libraries(twa_framework PUBLIC OpenMP::OpenMP_CXX)
+    message(STATUS "OpenMP found - enabling parallel trajectory execution")
+else()
+    message(STATUS "OpenMP not found - sequential trajectory execution")
+endif()
+
+# TWA Simulation Executables
+add_executable(h2_twa_simulation
+    main_h2.cpp
+)
+
+target_link_libraries(h2_twa_simulation
+    PRIVATE
+        h2_twa
+)
+
+add_executable(h2o_twa_simulation
+    main_h2o.cpp
+)
+
+target_link_libraries(h2o_twa_simulation
+    PRIVATE
+        h2o_twa
+)
+
 # H2 simulator library (TODO: implement C++ version)
 # add_library(rich_sim_h2
 #     rich_sim_h2.cpp
