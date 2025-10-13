@@ -1,0 +1,12 @@
+# Core dependencies
+numpy>=1.19.0
+scipy>=1.5.0
+typing-extensions>=3.7.4
+
+# Development and testing
+pytest>=6.0.0
+matplotlib>=3.3.0
+jupyter>=1.0.0
+
+# Optional: Quantum computing integration
+qiskit>=0.34.0
