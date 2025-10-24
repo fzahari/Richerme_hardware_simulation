@@ -444,7 +444,7 @@ Contributions are welcome! Areas for improvement:
 - CUDA-Q documentation: https://nvidia.github.io/cuda-quantum/
 
 ### Hardware Specifications
-- See `DEVELOPMENT.md` for 171Yb+ trapped-ion specifications
+- See project documentation for 171Yb+ trapped-ion specifications
 
 ## Support
 

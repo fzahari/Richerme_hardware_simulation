@@ -340,7 +340,7 @@ class IonTrapDissipationRates:
                          For H2O model: ~10 Hartree
                          For real atomic units: use 1.0
         """
-        # From DEVELOPMENT.md hardware specifications (SI units)
+        # Hardware specifications for 171Yb+ trapped ions (SI units)
         self.T1_SI = 1000.0  # seconds (effectively infinite)
         self.T2_SI = 1.0     # seconds (dephasing time)
 

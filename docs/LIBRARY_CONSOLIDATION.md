@@ -88,8 +88,7 @@ mv richerme_ion_analog.py richerme_ion_analog_legacy.py
 
 1. Update README.md to remove mention of two libraries
 2. Update LIBRARY_EXPLANATION.md to reflect single library
-3. Update DEVELOPMENT.md with new structure
-4. Add migration guide for external users
+3. Add migration guide for external users
 
 ## Benefits
 

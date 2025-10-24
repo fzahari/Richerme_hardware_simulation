@@ -310,7 +310,7 @@ where:
 
 ## Hardware Parameters (171Yb+ Ions)
 
-From `DEVELOPMENT.md` specifications:
+Hardware specifications for 171Yb+ trapped ions:
 
 ```python
 T1 = 1000 s              # Energy relaxation time (effectively infinite)

@@ -385,4 +385,4 @@ Potential additions (not yet implemented):
 
 ## Contact
 
-For questions about the C++ implementation, see the main project README.md or DEVELOPMENT.md.
+For questions about the C++ implementation, see the main project README.md.

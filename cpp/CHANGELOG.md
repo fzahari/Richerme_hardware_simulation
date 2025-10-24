@@ -150,7 +150,6 @@ For developers: If you were using the XXX pattern test as a reference, note that
 - **Richerme et al. (2025)**: Multi-mode global driving, Quantum Sci. Technol. 10, 035046
 - **Kyprianidis et al. (2024)**: Interaction graph engineering, New J. Phys. 26, 023033
 - **Eigen3**: http://eigen.tuxfamily.org/
-- **DEVELOPMENT.md**: Project development guidelines
 
 ---
 

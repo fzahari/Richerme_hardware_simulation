@@ -304,7 +304,7 @@ class IonTrapDissipationRates:
         Args:
             energy_scale: Typical energy scale of Hamiltonian (for unit matching)
         """
-        # From DEVELOPMENT.md hardware specifications (SI units)
+        # Hardware specifications for 171Yb+ trapped ions (SI units)
         self.T1_SI = 1000.0  # seconds (effectively infinite)
         self.T2_SI = 1.0     # seconds (dephasing time)
 
