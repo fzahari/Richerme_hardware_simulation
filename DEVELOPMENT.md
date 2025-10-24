@@ -177,7 +177,6 @@ This is not a fundamental limitation of the physics but a current implementation
 - `rich_sim_h2o.py`: Water molecule simulation (not yet examined)
 - `setup.py`: Package configuration with entry points
 - `requirements.txt`: Dependencies (numpy, scipy, pytest, matplotlib, jupyter, qiskit)
-- `WARP.md`: Comprehensive user documentation with API reference and examples
 
 ## Expected Test Output
 
