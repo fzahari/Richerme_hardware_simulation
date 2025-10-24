@@ -19,7 +19,7 @@ setup(
     name="richerme-quantum-hardware",
     version="1.0.0",
     author="Federico Zahariev",
-    author_email="federicozahariev@example.com",
+    author_email="fzahari@iastate.edu",
     description="Python library for synthesizing quantum gates on trapped-ion analog hardware",
     long_description=read_readme(),
     long_description_content_type="text/markdown",
