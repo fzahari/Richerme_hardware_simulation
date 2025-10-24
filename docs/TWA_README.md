@@ -17,7 +17,7 @@ Hosseinabadi, Chelpanova, and Marino, *PRX Quantum* **6**, 030344 (2025)
 | `rich_sim_h2_twa.py` | H2 molecule with TWA dissipation (4 qubits) |
 | `rich_sim_h2o_twa.py` | H2O molecule with TWA dissipation (10 qubits) |
 | `test_twa_implementation.py` | Validation tests for TWA implementations |
-| `TWA_README.md` | This file |
+| `docs/TWA_README.md` | This file |
 
 ### GPU-Accelerated Versions (CUDA-Q/CuPy) 🚀 NEW!
 
@@ -27,7 +27,7 @@ Hosseinabadi, Chelpanova, and Marino, *PRX Quantum* **6**, 030344 (2025)
 | `cudaq_rich_sim_h2_twa.py` | GPU-accelerated H2 simulation |
 | `cudaq_rich_sim_h2o_twa.py` | GPU-accelerated H2O simulation |
 | `demo_cudaq_speedup.py` | Benchmark script comparing CPU vs GPU performance |
-| `CUDAQ_TWA_README.md` | Comprehensive GPU acceleration guide |
+| `docs/CUDAQ_TWA_README.md` | Comprehensive GPU acceleration guide |
 
 **GPU Features**:
 - ⚡ **10-100x speedup** over CPU versions
@@ -36,7 +36,7 @@ Hosseinabadi, Chelpanova, and Marino, *PRX Quantum* **6**, 030344 (2025)
 - 🔄 **Automatic fallback** to CPU if GPU unavailable
 - 📦 **Same API** as CPU versions (drop-in replacement)
 
-See `CUDAQ_TWA_README.md` for installation and usage details.
+See `docs/CUDAQ_TWA_README.md` for installation and usage details.
 
 ### C++ High-Performance Versions 🔥 NEW!
 
@@ -57,7 +57,7 @@ See `CUDAQ_TWA_README.md` for installation and usage details.
 - 📝 **Console output** (no visualization, use Python for plots)
 - 🔬 **Same physics** as Python versions (validated)
 
-See `cpp/README_CPP_TWA.md` for build instructions and `CPP_TWA_SUMMARY.md` for performance benchmarks.
+See `cpp/README_CPP_TWA.md` for build instructions and `docs/CPP_TWA_SUMMARY.md` for performance benchmarks.
 
 ## What is TWA?
 
@@ -219,7 +219,7 @@ make h2_twa_simulation h2o_twa_simulation -j4
 
 **Output**: Compares ideal vs T1+T2 for 10-qubit system in ~0.15-0.3 seconds (300 trajectories)
 
-**Performance**: C++ version is **50-200x faster** than Python CPU version. See `CPP_TWA_SUMMARY.md` for detailed benchmarks.
+**Performance**: C++ version is **50-200x faster** than Python CPU version. See `docs/CPP_TWA_SUMMARY.md` for detailed benchmarks.
 
 ## Physics Behind TWA
 

@@ -439,10 +439,10 @@ The CUDA-Q TWA implementations provide:
 | **Benchmark CPU vs GPU** | `python demo_cudaq_speedup.py` |
 | **Check GPU available** | `python -c "import cupy; print(cupy.cuda.is_available())"` |
 | **Install CuPy** | `pip install cupy-cuda12x` |
-| **Read GPU docs** | Open `CUDAQ_TWA_README.md` |
+| **Read GPU docs** | Open `docs/CUDAQ_TWA_README.md` |
 
 ---
 
 **Created**: 2025-10-13
-**Author**: Federico Zahariev (with ***REMOVED***)
+**Author**: Federico Zahariev
 **Status**: Production-ready, tested and validated

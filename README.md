@@ -66,7 +66,7 @@ Richerme_Quantum_Hardware/
 ├── requirements.txt                    # Dependencies (CPU)
 ├── requirements_gpu.txt                # GPU dependencies (+ CuPy)
 ├── README.md                           # Main documentation
-├── DEVELOPMENT.md                           # Development guidelines
+├── DEVELOPMENT.md                      # Development guidelines
 │
 ├── docs/                               # Documentation
 │   ├── LIBRARY_EXPLANATION.md         # What do these libraries do?
@@ -79,7 +79,8 @@ Richerme_Quantum_Hardware/
 │   ├── TWA_NUMERICAL_FIXES.md         # TWA stability improvements
 │   ├── TWA_README.md                  # TWA documentation (CPU & GPU)
 │   ├── CUDAQ_TWA_README.md            # GPU acceleration guide
-│   └── CUDAQ_IMPLEMENTATION_SUMMARY.md # GPU implementation details
+│   ├── CUDAQ_IMPLEMENTATION_SUMMARY.md # GPU implementation details
+│   └── CPP_TWA_SUMMARY.md             # C++ TWA implementation
 │
 ├── tests/                              # Test suite
 │   ├── test_richerme_ion_analog.py    # Core library tests (63 tests)
@@ -207,7 +208,7 @@ results = h2_gpu.compare_with_ideal(r=0.74, total_time=20.0)
 pip install cupy-cuda12x  # For CUDA 12.x (or cupy-cuda11x for CUDA 11.x)
 ```
 
-See [TWA_README.md](TWA_README.md) and [CUDAQ_TWA_README.md](CUDAQ_TWA_README.md) for details.
+See [TWA_README.md](docs/TWA_README.md) and [CUDAQ_TWA_README.md](docs/CUDAQ_TWA_README.md) for details.
 
 ## Running Tests
 
@@ -330,6 +331,8 @@ This is a research project for trapped-ion quantum simulation. Contributions sho
 - **Clean code practices** (small functions, descriptive names, no side effects)
 - **Test coverage** (all new features must have tests)
 - **Documentation** (docstrings and examples)
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for detailed contribution guidelines.
 
 ## License
 
