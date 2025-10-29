@@ -19,7 +19,7 @@ Hosseinabadi, Chelpanova, and Marino, *PRX Quantum* **6**, 030344 (2025)
 | `test_twa_implementation.py` | Validation tests for TWA implementations |
 | `docs/TWA_README.md` | This file |
 
-### GPU-Accelerated Versions (CUDA-Q/CuPy) 🚀 NEW!
+### GPU-Accelerated Versions (CUDA-Q/CuPy)  NEW!
 
 | File | Description |
 |------|-------------|
@@ -30,15 +30,15 @@ Hosseinabadi, Chelpanova, and Marino, *PRX Quantum* **6**, 030344 (2025)
 | `docs/CUDAQ_TWA_README.md` | Comprehensive GPU acceleration guide |
 
 **GPU Features**:
-- ⚡ **10-100x speedup** over CPU versions
-- 🔄 All trajectories evolved **in parallel** on GPU
-- 💾 Handle **thousands of trajectories** easily
-- 🔄 **Automatic fallback** to CPU if GPU unavailable
-- 📦 **Same API** as CPU versions (drop-in replacement)
+-  **10-100x speedup** over CPU versions
+-  All trajectories evolved **in parallel** on GPU
+-  Handle **thousands of trajectories** easily
+-  **Automatic fallback** to CPU if GPU unavailable
+-  **Same API** as CPU versions (drop-in replacement)
 
 See `docs/CUDAQ_TWA_README.md` for installation and usage details.
 
-### C++ High-Performance Versions 🔥 NEW!
+### C++ High-Performance Versions  NEW!
 
 | File | Description |
 |------|-------------|
@@ -50,12 +50,12 @@ See `docs/CUDAQ_TWA_README.md` for installation and usage details.
 | `cpp/README_CPP_TWA.md` | Comprehensive C++ build/usage guide |
 
 **C++ Features**:
-- 🚀 **50-200x speedup** over Python CPU (compiled native code)
-- 💪 **OpenMP parallelization** for multi-core CPUs
-- 📦 **Minimal dependencies** (Eigen3 + OpenMP only)
-- 🔧 **Production-ready** for HPC clusters and batch processing
-- 📝 **Console output** (no visualization, use Python for plots)
-- 🔬 **Same physics** as Python versions (validated)
+-  **50-200x speedup** over Python CPU (compiled native code)
+-  **OpenMP parallelization** for multi-core CPUs
+-  **Minimal dependencies** (Eigen3 + OpenMP only)
+-  **Production-ready** for HPC clusters and batch processing
+-  **Console output** (no visualization, use Python for plots)
+-  **Same physics** as Python versions (validated)
 
 See `cpp/README_CPP_TWA.md` for build instructions and `docs/CPP_TWA_SUMMARY.md` for performance benchmarks.
 
@@ -70,10 +70,10 @@ The **Truncated Wigner Approximation** is a semiclassical method for simulating 
 
 ### Key Advantages
 
-✅ **Scalable**: Simulates 10+ qubits on a laptop (vs. exact methods limited to ~12 qubits)
-✅ **Hardware-realistic**: Models actual 171Yb+ ion trap parameters (T1 > 1000s, T2 > 1s)
-✅ **Fast**: Minutes on consumer hardware vs. hours for exact methods
-✅ **Physical**: Automatically conserves spin length for each trajectory
+ **Scalable**: Simulates 10+ qubits on a laptop (vs. exact methods limited to ~12 qubits)
+ **Hardware-realistic**: Models actual 171Yb+ ion trap parameters (T1 > 1000s, T2 > 1s)
+ **Fast**: Minutes on consumer hardware vs. hours for exact methods
+ **Physical**: Automatically conserves spin length for each trajectory
 
 ## Quick Start
 
@@ -121,7 +121,7 @@ This runs 5 validation tests:
 4. **Trajectory averaging**: Confirms statistical noise scales as 1/√N
 5. **H2O scalability**: Tests that 10-qubit system runs without errors
 
-### GPU-Accelerated Versions ⚡
+### GPU-Accelerated Versions 
 
 **Requirements**: Install CuPy for GPU acceleration:
 ```bash
@@ -169,7 +169,7 @@ This will:
 
 **Note**: If CuPy is not installed, GPU versions automatically fall back to CPU (NumPy).
 
-### C++ High-Performance Versions 🔥
+### C++ High-Performance Versions 
 
 **Requirements**: C++ compiler with C++17 support, CMake, and Eigen3:
 ```bash
@@ -279,7 +279,7 @@ where:
 | H2 | 4 | 500 | ~2 minutes | ~10 seconds |
 | H2O | 10 | 300 | ~8 minutes | **IMPOSSIBLE** (2¹⁰ = 1024 dim) |
 
-#### GPU Version (CUDA-Q/CuPy) ⚡
+#### GPU Version (CUDA-Q/CuPy) 
 
 | System | Qubits | Trajectories | Time (GPU) | Speedup vs CPU |
 |--------|--------|-------------|-----------|----------------|
@@ -289,10 +289,10 @@ where:
 **Key advantages of GPU version**:
 - Run **many more trajectories** in same time → better statistics, lower error bars
 - Larger systems benefit more (H2O: 16x vs H2: 5x)
-- Can handle 5000+ trajectories for excellent convergence
+- Can handle 5000+ trajectories for improved convergence
 - TWA becomes **increasingly advantageous** as system size grows!
 
-#### C++ Version (Compiled Native Code) 🔥
+#### C++ Version (Compiled Native Code) 
 
 | System | Qubits | Trajectories | Time (C++) | Speedup vs Python CPU |
 |--------|--------|-------------|-----------|----------------------|

@@ -106,9 +106,9 @@ H2 MOLECULE: CPU vs GPU BENCHMARK
   GPU time:  15.23 s
   Speedup:   7.91x
 
-  🚀 Excellent speedup! GPU is 7.9x faster
+   GPU is 7.9x faster
   Energy difference: 2.34e-05 H (should be < 1e-3)
-  ✓ Results agree within statistical error
+   Results agree within statistical error
 ```
 
 **Run with**:
@@ -259,7 +259,7 @@ If CuPy is not installed, GPU versions automatically use NumPy:
 
 ```python
 h2 = CUDAQ_H2_TWA_Simulator(n_trajectories=500, use_gpu=True)
-# Output: ⚠ CuPy not available - falling back to CPU
+# Output:  CuPy not available - falling back to CPU
 # Code still runs (just slower)
 ```
 
@@ -316,13 +316,13 @@ Device: (7, 5)  # Example: Tesla V100
 
 ### When to Use GPU Versions
 
-✅ **Use GPU when**:
+ **Use GPU when**:
 - Trajectory count ≥ 1000
 - System size ≥ 4 qubits
 - You want better statistics (more trajectories)
 - You have a CUDA-capable GPU
 
-❌ **Stick with CPU when**:
+ **Stick with CPU when**:
 - Quick tests (< 100 trajectories)
 - Very small systems (< 4 qubits)
 - No GPU available
@@ -369,11 +369,11 @@ Device: (7, 5)  # Example: Tesla V100
 
 The GPU versions implement **exactly the same physics** as CPU:
 
-✅ Same TWA equations of motion
-✅ Same dissipation channels (T1, T2)
-✅ Same RK4 integration
-✅ Same initial state sampling
-✅ Same noise generation (different RNG seed)
+ Same TWA equations of motion
+ Same dissipation channels (T1, T2)
+ Same RK4 integration
+ Same initial state sampling
+ Same noise generation (different RNG seed)
 
 ### Numerical Verification
 
@@ -390,11 +390,11 @@ Magnetization difference: ~1e-3 to 1e-4
 ### Tests Performed
 
 Both versions pass the same validation tests:
-1. ✅ Spin length conservation: |s|² = 3
-2. ✅ Energy conservation (no dissipation)
-3. ✅ T1/T2 dissipation effects
-4. ✅ Trajectory averaging convergence
-5. ✅ Numerical stability
+1.  Spin length conservation: |s|² = 3
+2.  Energy conservation (no dissipation)
+3.  T1/T2 dissipation effects
+4.  Trajectory averaging convergence
+5.  Numerical stability
 
 ## Future Enhancements
 
@@ -418,11 +418,11 @@ Areas for community contributions:
 
 The CUDA-Q TWA implementations provide:
 
-🚀 **10-100x speedup** over CPU versions
-💾 **Thousands of trajectories** → better statistics
-🔄 **Identical API** → drop-in replacement
-✅ **Same physics** → validated against CPU
-📦 **Auto fallback** → works without GPU
+ **10-100x speedup** over CPU versions
+ **Thousands of trajectories** → better statistics
+ **Identical API** → drop-in replacement
+ **Same physics** → validated against CPU
+ **Auto fallback** → works without GPU
 
 **Recommended workflow**:
 1. Develop/debug with CPU version (few trajectories)

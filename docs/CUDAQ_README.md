@@ -19,9 +19,9 @@ The CUDA-Q versions provide the same functionality as the NumPy originals but wi
 
 All CUDA-Q implementations use **direct operator algebra** rather than quantum circuits:
 
-- ✓ Direct state-operator multiplication: `psi_new = U @ psi`
-- ✓ Matrix exponentiation for time evolution
-- ✓ Explicit unitary construction
+-  Direct state-operator multiplication: `psi_new = U @ psi`
+-  Matrix exponentiation for time evolution
+-  Explicit unitary construction
 - ✗ No circuit compilation overhead
 - ✗ No gate decomposition into hardware primitives
 - ✗ No measurement sampling (uses statevector directly)
@@ -164,16 +164,16 @@ plt.show()
 
 | Feature | NumPy | CUDA-Q |
 |---------|-------|--------|
-| Gate synthesis | ✓ | ✓ |
-| Arbitrary Pauli strings | ✓ | ✓ |
-| Accessibility checking | ✓ | ✓ |
-| Mode weight optimization | ✓ | ✓ |
-| H2 simulation | ✓ | ✓ |
-| H2O simulation | ✓ | ✓ |
-| Imaginary-time evolution | ✓ | ✓ |
-| VQE optimization | ✓ | ✓ |
-| Hardware gates (171Yb+) | ✓ | ✓ |
-| GPU acceleration | ✗ | ✓ (with CuPy) |
+| Gate synthesis |  |  |
+| Arbitrary Pauli strings |  |  |
+| Accessibility checking |  |  |
+| Mode weight optimization |  |  |
+| H2 simulation |  |  |
+| H2O simulation |  |  |
+| Imaginary-time evolution |  |  |
+| VQE optimization |  |  |
+| Hardware gates (171Yb+) |  |  |
+| GPU acceleration | ✗ |  (with CuPy) |
 | Circuit export | ✗ | ✗ (operator-based) |
 | Real hardware execution | ✗ | Possible* |
 
@@ -199,15 +199,15 @@ Testing CUDA-Q Implementations (No CUDA-Q Required)
 
 Test 1: Richerme CUDA-Q Basic Functionality
 ----------------------------------------------------------------------
-✓ ZXX synthesis: error = 1.78e-15
-✓ ZYZ synthesis: error = 7.32e-16
-✓ UMQ unitarity: error = 3.21e-15
+ ZXX synthesis: error = 1.78e-15
+ ZYZ synthesis: error = 7.32e-16
+ UMQ unitarity: error = 3.21e-15
 
 Test 2: Richerme CUDA-Q Accessibility
 ----------------------------------------------------------------------
-✓ Sinusoidal modes orthonormal: error = 5.13e-16
-✓ All-to-all interaction is accessible
-✓ Mode weights extracted: [ 4. -1. -1. -1. -1.]
+ Sinusoidal modes orthonormal: error = 5.13e-16
+ All-to-all interaction is accessible
+ Mode weights extracted: [ 4. -1. -1. -1. -1.]
 
 ... (all tests pass)
 

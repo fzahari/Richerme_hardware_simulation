@@ -136,11 +136,11 @@ def __init__(self, n_trajectories=300, energy_scale=1e15):
 ## Results
 
 After fixes:
-- ✅ No overflow errors
-- ✅ No NaN values (or very few failed trajectories)
-- ✅ Realistic dissipation timescales
-- ✅ Energy conservation maintained
-- ✅ Spin norms remain at |s|² ≈ 3
+-  No overflow errors
+-  No NaN values (or very few failed trajectories)
+-  Realistic dissipation timescales
+-  Energy conservation maintained
+-  Spin norms remain at |s|² ≈ 3
 
 ## Usage Guidelines
 

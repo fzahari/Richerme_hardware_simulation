@@ -14,18 +14,18 @@ This directory contains **GPU-accelerated versions** of the TWA (Truncated Wigne
 
 ## Key Features
 
-### 🚀 Performance
+###  Performance
 - **10-100x faster** than CPU versions
 - All trajectories evolved **in parallel** on GPU
 - Vectorized RK4 integration across trajectories
 - Efficient GPU random number generation
 
-### 💾 Scalability
+###  Scalability
 - Handle 10,000+ trajectories easily
 - Larger systems benefit more from GPU
 - Automatic memory management via CuPy
 
-### 🔄 Compatibility
+###  Compatibility
 - **Automatic fallback to CPU** if GPU unavailable
 - Same API as CPU versions
 - Drop-in replacement for existing code
@@ -74,13 +74,13 @@ results = h2_twa.compare_with_ideal(r=0.74, total_time=20.0, n_steps=100)
 
 **Expected output:**
 ```
-✓ CuPy available - GPU acceleration enabled
-✓ GPU-accelerated TWA simulator initialized
+ CuPy available - GPU acceleration enabled
+ GPU-accelerated TWA simulator initialized
   Device: (7, 5)  # Example: Compute Capability 7.5
   Qubits: 4
   Trajectories: 2000
 
-✓ Simulation complete in 12.45 seconds
+ Simulation complete in 12.45 seconds
   (0.1245 s/step, 0.0062 s/trajectory)
 ```
 
@@ -107,7 +107,7 @@ If CuPy is not installed, the code automatically falls back to NumPy (CPU):
 ```python
 # This works even without GPU
 h2_twa = CUDAQ_H2_TWA_Simulator(n_trajectories=500, use_gpu=True)
-# Output: ⚠ CuPy not available - falling back to CPU
+# Output:  CuPy not available - falling back to CPU
 ```
 
 ## Performance Comparison
@@ -219,7 +219,7 @@ h2 = CUDAQ_H2_TWA_Simulator(n_trajectories=100)
 # Good (better GPU utilization)
 h2 = CUDAQ_H2_TWA_Simulator(n_trajectories=1000)
 
-# Excellent (maximizes GPU throughput)
+# Maximizes GPU throughput
 h2 = CUDAQ_H2_TWA_Simulator(n_trajectories=5000)
 ```
 
@@ -364,7 +364,7 @@ Parameters: 4 qubits, 1000 trajectories, 100 steps
 [2] GPU version...
   Initialization: 0.0031 s
 
-✓ GPU Speedup: 7.90x
+ GPU Speedup: 7.90x
 ============================================================
 ```
 
@@ -398,7 +398,7 @@ print(f"Speedup: {cpu_time/gpu_time:.2f}x")
 
 ### Physics
 
-✅ **Identical physics** to CPU version:
+ **Identical physics** to CPU version:
 - Same TWA equations of motion
 - Same dissipation channels
 - Same numerical integration (RK4)

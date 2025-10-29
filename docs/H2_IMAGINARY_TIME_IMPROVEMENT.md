@@ -63,9 +63,9 @@ exp(-Hβ)|ψ⟩ → exp(-E₀β) [α|ψ₀⟩ + β|ψ₁⟩]
 ```
 
 The final state is a **superposition of both degenerate ground states**, not a pure eigenstate. Therefore:
-- Overlap with |ψ₀⟩: ~0.5 ✓
-- Overlap with |ψ₁⟩: ~0.5 ✓
-- Energy expectation: E₀ (exact) ✓
+- Overlap with |ψ₀⟩: ~0.5 
+- Overlap with |ψ₁⟩: ~0.5 
+- Energy expectation: E₀ (exact) 
 
 This is **correct behavior**, not an error!
 
@@ -75,10 +75,10 @@ This is **correct behavior**, not an error!
 |-------|---------|-------------|------|---------|
 | 20 | 200 | 2.2e-3 H | 0.5s | Old default (poor) |
 | 50 | 500 | 8.6e-6 H | 1.2s | Better |
-| 100 | 1000 | 8.1e-10 H | 2.5s | **New default (excellent)** |
+| 100 | 1000 | 8.1e-10 H | 2.5s | **New default (high accuracy)** |
 | 200 | 2000 | ~1e-12 H | 10s | Overkill (numerical precision limit) |
 
-**Recommendation:** Use default `beta_max=100, n_steps=1000` for excellent accuracy.
+**Recommendation:** Use default `beta_max=100, n_steps=1000` for high accuracy.
 
 ## Usage Examples
 
@@ -165,7 +165,7 @@ assert error < 1e-8, f'Error too large: {error:.3e} H'
 assert result['degeneracy'] == 2, 'Should detect 2-fold degeneracy'
 assert 0.49 < result['overlaps'][-1] < 0.51, 'Overlap should be ~0.5'
 
-print('✓ All tests passed!')
+print(' All tests passed!')
 print(f'  Error: {error:.3e} H')
 print(f'  Degeneracy: {result[\"degeneracy\"]}')
 print(f'  Overlap: {result[\"overlaps\"][-1]:.6f}')
@@ -180,7 +180,7 @@ print(f'  Overlap: {result[\"overlaps\"][-1]:.6f}')
 | Compute time | 0.5s | 2.5s | 5x slower |
 | Memory | ~1 MB | ~1 MB | No change |
 
-**Trade-off:** 5x longer runtime for 2.7 million times better accuracy. Excellent bargain!
+**Trade-off:** 5x longer runtime for 2.7 million times better accuracy. 
 
 ## Comparison with Other Methods
 

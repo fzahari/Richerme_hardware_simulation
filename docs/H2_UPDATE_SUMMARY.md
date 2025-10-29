@@ -50,7 +50,7 @@ def _xx_gate(self, q1: int, q2: int, phi: float) -> np.ndarray:
 ### 4. Enhanced Main Block (Lines 604-625)
 ```python
 if EXTENDED_LIB_AVAILABLE:
-    print("✓ Extended library detected - using hardware-realistic gates")
+    print(" Extended library detected - using hardware-realistic gates")
     print("  Gate synthesis: UMQ-Rz-UMQ construction (171Yb+)")
 ```
 - Clearer user feedback about which mode is active
@@ -67,11 +67,11 @@ Created comprehensive test suite in `test_h2_gates.py`:
 
 ### Test Coverage
 ```
-✓ XX gates: 20/20 tests passed (distance ~10^-16)
-✓ YY gates: 20/20 tests passed (distance ~10^-16)
-✓ ZZ gates: 20/20 tests passed (distance = 0)
-✓ H2 Hamiltonian construction
-✓ Ansatz generation with multiple configurations
+ XX gates: 20/20 tests passed (distance ~10^-16)
+ YY gates: 20/20 tests passed (distance ~10^-16)
+ ZZ gates: 20/20 tests passed (distance = 0)
+ H2 Hamiltonian construction
+ Ansatz generation with multiple configurations
 ```
 
 ## Key Features
@@ -146,9 +146,9 @@ h2_sim = H2TimeEvolutionSimulator(ion_system)
 
 | File | Status | Lines Changed | Purpose |
 |------|--------|---------------|---------|
-| `rich_sim_h2.py` | ✅ Updated | ~80 lines | Added hardware-realistic gates |
-| `test_h2_gates.py` | ✅ Created | 180 lines | Comprehensive test suite |
-| `H2_UPDATE_SUMMARY.md` | ✅ Created | This file | Documentation |
+| `rich_sim_h2.py` |  Updated | ~80 lines | Added hardware-realistic gates |
+| `test_h2_gates.py` |  Created | 180 lines | Comprehensive test suite |
+| `H2_UPDATE_SUMMARY.md` |  Created | This file | Documentation |
 
 ## Future Enhancements (Optional)
 
@@ -265,10 +265,10 @@ h2_sim = H2TimeEvolutionSimulator(ion_system, use_hardware_gates=True)
 ## Conclusion
 
 The H2 simulator has been successfully upgraded to use hardware-realistic gate synthesis while maintaining:
-- ✅ **Full backward compatibility** - existing code works unchanged
-- ✅ **Machine precision accuracy** - gates produce identical unitaries
-- ✅ **Enhanced documentation** - shows hardware implementation
-- ✅ **Future extensibility** - enables error modeling and pulse generation
-- ✅ **Zero performance cost** - no computational overhead
+-  **Full backward compatibility** - existing code works unchanged
+-  **Machine precision accuracy** - gates produce identical unitaries
+-  **Enhanced documentation** - shows hardware implementation
+-  **Future extensibility** - enables error modeling and pulse generation
+-  **Zero performance cost** - no computational overhead
 
 The update transforms the simulator from using idealized quantum gates to using hardware-native gate decomposition that matches actual trapped-ion implementations, making it more valuable for both research and education.

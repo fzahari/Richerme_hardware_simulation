@@ -2,21 +2,21 @@
 
 Python library for synthesizing quantum gates on trapped-ion analog hardware using the Richerme protocol.
 
-> **Note**: This library has been consolidated from a dual-library structure (`richerme_ion_analog.py` + `richerme_ion_analog_extended.py`) into a single unified library (`richerme_ion_analog.py`) that includes all features. See [LIBRARY_CONSOLIDATION.md](docs/LIBRARY_CONSOLIDATION.md) for migration details.
+Note: This library has been consolidated from a dual-library structure (richerme_ion_analog.py + richerme_ion_analog_extended.py) into a single unified library (richerme_ion_analog.py) that includes all features. See [LIBRARY_CONSOLIDATION.md](docs/LIBRARY_CONSOLIDATION.md) for migration details.
 
 ## Overview
 
-This library implements quantum gate synthesis techniques for trapped-ion analog quantum computers, specifically focusing on efficient construction of multi-qubit Pauli string unitaries using global Mølmer-Sørensen (MS) operations combined with single-qubit rotations.
+This library implements quantum gate synthesis techniques for trapped-ion analog quantum computers, focusing on efficient construction of multi-qubit Pauli string unitaries using global Mølmer-Sørensen (MS) operations combined with single-qubit rotations.
 
-**Key Features:**
+Key Features:
 - Hardware-native gate synthesis for trapped-ion systems (171Yb+ ions)
 - Arbitrary n-body Pauli string operations
 - Multi-mode global driving with interaction graph engineering
 - Accessibility checking and mode weight optimization
 - Full trapped-ion physics simulators
 - Molecular quantum chemistry applications (H2, H2O)
-- **NEW**: Truncated Wigner Approximation (TWA) for dissipative dynamics
-- **NEW**: GPU-accelerated TWA simulations (10-100x speedup)
+- Truncated Wigner Approximation (TWA) for dissipative dynamics
+- GPU-accelerated TWA simulations (10-100x speedup)
 
 ## Installation
 
@@ -174,7 +174,7 @@ print(f"VQE energy: {result['energy']:.6f} Hartree")
 print(f"Error vs exact: {result['error']:.6f} Hartree")
 ```
 
-### Dissipative Dynamics with TWA (NEW!)
+### Dissipative Dynamics with TWA
 
 Simulate realistic decoherence effects (T1/T2) using the Truncated Wigner Approximation:
 
@@ -192,7 +192,7 @@ print(f"With T1+T2:      {results['full']['avg_energies'][-1]:.6f} H")
 print(f"Dissipation:     {results['full']['avg_energies'][-1] - results['ideal']['avg_energies'][-1]:.6f} H")
 ```
 
-**GPU-Accelerated (10-100x faster!)**:
+GPU-Accelerated (10-100x faster):
 
 ```python
 from cudaq_rich_sim_h2_twa import CUDAQ_H2_TWA_Simulator
@@ -200,10 +200,10 @@ from cudaq_rich_sim_h2_twa import CUDAQ_H2_TWA_Simulator
 # GPU version handles many more trajectories
 h2_gpu = CUDAQ_H2_TWA_Simulator(n_trajectories=2000, use_gpu=True)
 results = h2_gpu.compare_with_ideal(r=0.74, total_time=20.0)
-# Runs in ~45 seconds (vs ~8 minutes on CPU!)
+# Runs in approximately 45 seconds (vs 8 minutes on CPU)
 ```
 
-**Requirements for GPU**:
+Requirements for GPU:
 ```bash
 pip install cupy-cuda12x  # For CUDA 12.x (or cupy-cuda11x for CUDA 11.x)
 ```
@@ -308,29 +308,29 @@ Memory scales as O(2ⁿ), computation as O(8ⁿ).
 
 ## Documentation
 
-- **[LIBRARY_EXPLANATION.md](docs/LIBRARY_EXPLANATION.md)**: **What do these libraries do?** Comprehensive explanation of the core algorithms
-- **[DEVELOPMENT.md](DEVELOPMENT.md)**: Development guidelines, coding standards, testing, comprehensive project documentation
-- **[INTEGRATION_GUIDE.md](docs/INTEGRATION_GUIDE.md)**: How to integrate extended features
-- **[SIMULATOR_ANALYSIS.md](docs/SIMULATOR_ANALYSIS.md)**: Detailed simulator comparison
-- **[H2_IMAGINARY_TIME_IMPROVEMENT.md](docs/H2_IMAGINARY_TIME_IMPROVEMENT.md)**: 2.7M× error reduction in H2 ground state finding
+- [LIBRARY_EXPLANATION.md](docs/LIBRARY_EXPLANATION.md): Comprehensive explanation of the core algorithms
+- [DEVELOPMENT.md](DEVELOPMENT.md): Development guidelines, coding standards, testing
+- [INTEGRATION_GUIDE.md](docs/INTEGRATION_GUIDE.md): Integration guide for extended features
+- [SIMULATOR_ANALYSIS.md](docs/SIMULATOR_ANALYSIS.md): Detailed simulator comparison
+- [H2_IMAGINARY_TIME_IMPROVEMENT.md](docs/H2_IMAGINARY_TIME_IMPROVEMENT.md): Error reduction in H2 ground state finding
 
 ## Scientific References
 
-1. **Richerme et al. (2025)** - "Multi-mode global driving techniques for trapped-ion quantum simulation"
+1. Richerme et al. (2025) - "Multi-mode global driving techniques for trapped-ion quantum simulation"
    - Quantum Sci. Technol. 10, 035046
    - Implements Equation 4 for multi-mode coupling
 
-2. **Kyprianidis et al. (2024)** - "Interaction graph engineering with trapped-ion quantum simulators"
+2. Kyprianidis et al. (2024) - "Interaction graph engineering with trapped-ion quantum simulators"
    - New J. Phys. 26, 023033
    - Implements Equations 14 (accessibility) and 18 (sinusoidal modes)
 
 ## Contributing
 
-This is a research project for trapped-ion quantum simulation. Contributions should follow:
-- **SOLID principles** (see DEVELOPMENT.md)
-- **Clean code practices** (small functions, descriptive names, no side effects)
-- **Test coverage** (all new features must have tests)
-- **Documentation** (docstrings and examples)
+Contributions should follow:
+- SOLID principles (see DEVELOPMENT.md)
+- Clean code practices (small functions, descriptive names, no side effects)
+- Test coverage (all new features must have tests)
+- Documentation (docstrings and examples)
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for detailed contribution guidelines.
 
@@ -338,9 +338,10 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for detailed contribution guidelines.
 
 MIT License (see LICENSE file)
 
-## Author
+## Authors
 
 Federico Zahariev (fzahari@iastate.edu)
+Jackson J. Hayes (jhayes1@iastate.edu)
 
 ## Acknowledgments
 
@@ -353,4 +354,4 @@ Based on the Richerme protocol for trapped-ion quantum gate synthesis. Implement
 
 ---
 
-**For comprehensive project documentation, see [DEVELOPMENT.md](DEVELOPMENT.md)**
+For comprehensive project documentation, see [DEVELOPMENT.md](DEVELOPMENT.md)
