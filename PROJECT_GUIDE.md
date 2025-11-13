@@ -1,0 +1,317 @@
+# Project Guide
+
+Development guide for working with this repository.
+
+## Project Overview
+
+Python library for synthesizing quantum gates on trapped-ion analog hardware using the Richerme protocol. Implements quantum gate synthesis for 171Yb+ trapped-ion systems, focusing on multi-qubit Pauli string unitaries using global Mølmer-Sørensen (MS) operations with single-qubit rotations.
+
+## Common Development Commands
+
+### Testing
+```bash
+# Run all tests
+pytest tests/ -v
+
+# Run specific test suites
+pytest tests/test_richerme_ion_analog.py -v    # Core library (63 tests, ~0.5s)
+pytest tests/test_h2_gates.py -v               # H2 simulator validation
+pytest tests/test_h2o_gates.py -v              # H2O simulator validation
+pytest tests/test_lih_simulator.py -v          # LiH simulator validation (15 tests)
+pytest tests/test_twa_implementation.py -v     # TWA framework (5 tests)
+
+# Quick test run
+pytest tests/ -q
+```
+
+Expected output for core tests:
+```
+tests/test_richerme_ion_analog.py: 63 passed in 0.52s
+tests/test_lih_simulator.py: 15 passed in 12.34s
+```
+
+### Running Examples
+```bash
+# Basic synthesis demonstration
+python examples/demo_zxx.py
+
+# Extended features (arbitrary Pauli, optimization)
+python examples/demo_extended_features.py
+
+# LiH VQE demonstration
+python examples/demo_lih_vqe.py
+
+# GPU speedup benchmark (requires CUDA)
+python demo_cudaq_speedup.py
+```
+
+### Running Simulations
+```bash
+# Full trapped-ion simulator
+python rich_sim.py
+
+# Molecular simulations (VQE and time evolution)
+python rich_sim_h2.py          # H2 molecule (4 qubits)
+python rich_sim_h2o.py         # H2O molecule (10 qubits)
+python rich_sim_lih.py         # LiH molecule (4 or 10 qubits)
+
+# TWA dissipative dynamics (CPU)
+python rich_sim_h2_twa.py      # H2 with decoherence
+python rich_sim_h2o_twa.py     # H2O with decoherence
+python rich_sim_lih_twa.py     # LiH with decoherence
+
+# GPU-accelerated TWA (10-100x faster)
+python cudaq_rich_sim_h2_twa.py
+python cudaq_rich_sim_h2o_twa.py
+python cudaq_rich_sim_lih_twa.py
+```
+
+### Installation
+```bash
+# Create recommended environment
+conda create -n qiskit-fresh python=3.9 -y
+conda activate qiskit-fresh
+
+# Install dependencies
+pip install -r requirements.txt
+
+# Install package in editable mode
+pip install -e .
+
+# For GPU acceleration
+pip install -r requirements_gpu.txt
+```
+
+### C++ TWA Implementation
+```bash
+cd cpp/
+./build.sh              # Build C++ TWA simulators
+./verify_build.sh       # Verify build and run tests
+./main_h2               # Run H2 TWA simulation
+./main_h2o              # Run H2O TWA simulation
+```
+
+## High-Level Architecture
+
+### Core Library: richerme_ion_analog.py
+
+Implements the **UMQ-Rz-UMQ construction pattern** for synthesizing n-body Pauli strings:
+
+```
+U(P₁⊗P₂⊗...⊗Pₙ, t) = R_post · UMQ(-π/2) · Rz(±2t) · UMQ(+π/2) · R_pre
+```
+
+**Key components:**
+- **UMQ(χ)**: Global MS gate = exp(-i(χ/4)(∑ᵢ Xᵢ)²) - hardware-native entangling operation
+- **Single-qubit rotations**: Rx, Ry, Rz for basis transformations
+- **n_body_string_arbitrary()**: Synthesizes arbitrary Pauli patterns (ZYZ, XYX, etc.)
+- **Multi-mode coupling**: Jij_from_multimode() implements realistic Ising couplings from multi-tone driving
+- **Accessibility checking**: is_accessible() checks if interaction graph is realizable with global beams
+- **Mode optimization**: optimize_mode_weights() finds best approximation for inaccessible graphs
+
+### Trapped-Ion Simulators
+
+**rich_sim.py** - Full trapped-ion physics simulator:
+- Calculates equilibrium ion positions (harmonic/anharmonic traps)
+- Computes normal modes and frequencies
+- Generates interaction matrices from mode participation
+- Simulates quantum dynamics under Ising evolution
+- Supports 1D/2D ion crystals
+
+**rich_sim_h2.py** - H2 molecule (4 qubits):
+- H₂ Hamiltonian as Pauli string decomposition
+- VQE implementation with hardware-realistic gates
+- Adiabatic and imaginary-time evolution methods
+
+**rich_sim_h2o.py** - H2O molecule (10 qubits):
+- QEE compression (14→10 qubits)
+- Smart term grouping (73→3 operations)
+- Hardware-realistic gate synthesis
+
+**rich_sim_lih.py** - LiH molecule (4 or 10 qubits):
+- LiH Hamiltonian with Pauli decomposition (18 terms for 4 qubits)
+- VQE implementation with hardware-efficient ansatz
+- Multi-trial COBYLA/L-BFGS-B optimization
+- Potential energy surface scanning
+- Optional Qiskit Nature integration for exact Hamiltonians
+
+### TWA Framework (Dissipative Dynamics)
+
+**twa_framework.py** - CPU implementation:
+- Truncated Wigner Approximation for dissipative spin dynamics
+- Implements discrete TWA (DTWA) sampling from Hosseinabadi et al. (2025)
+- Supports T1/T2 decoherence, dephasing
+- Stochastic trajectory evolution with RK4 integration
+
+**cudaq_twa_framework.py** - GPU-accelerated (10-100x speedup):
+- CuPy-based GPU implementation
+- Handles 1000s of trajectories efficiently
+- Identical physics to CPU version
+
+**C++ Implementation** (cpp/ directory):
+- Native C++ TWA simulators for H2 and H2O
+- Uses Eigen library for linear algebra
+- Compiled with CMake
+
+### Molecular Simulation Files
+
+Pattern: `{molecule}_{variant}.py` where variant is:
+- Base: Ideal quantum simulation (VQE or time evolution)
+- `_cudaq`: GPU-accelerated using CuPy
+- `_twa`: CPU dissipative dynamics with TWA
+- `cudaq_{molecule}_twa`: GPU dissipative dynamics
+
+Supported molecules:
+- **H2** (4 qubits): Hydrogen molecule, 18 Pauli terms
+- **H2O** (10 qubits): Water molecule, 73 Pauli terms (grouped to 3)
+- **LiH** (4 or 10 qubits): Lithium hydride, 18 Pauli terms (4q), VQE-focused
+
+## Key Scientific Concepts
+
+### Multi-Mode Global Driving
+
+Implements **Equation 4** from Richerme 2025:
+```
+J_ij = ∑ₖ [∑ₘ (Ωₘ²R)/(μₘ² - ωₖ²)] · Bᵢₖ · Bⱼₖ
+```
+
+Where:
+- Ωₘ: Rabi frequency of tone m
+- μₘ: Detuning of tone m
+- ωₖ: Normal mode frequency k
+- R: Recoil frequency
+- B: Mode participation matrix
+
+### Accessibility Criterion
+
+**Equation 14** from Kyprianidis 2024:
+```
+J is accessible ⟺ B^T · J · B is diagonal
+```
+
+If interaction graph J is accessible, it can be exactly realized. Otherwise, optimize_mode_weights() finds best approximation.
+
+### Hardware Specifications (171Yb+)
+
+- **Qubit encoding**: Hyperfine states |F=0,mF=0⟩ and |F=1,mF=0⟩
+- **Hyperfine splitting**: 12.6 GHz
+- **T1 coherence**: Effectively infinite
+- **T2 coherence**: > 1 second
+- **Single-qubit fidelity**: 99.8%
+- **Two-qubit fidelity**: 97%
+- **Trap frequencies**: ωz ≈ 0.1-0.5 MHz (axial), ωx,y ≈ 5-10 MHz (radial)
+
+## Testing Philosophy
+
+The test suite validates numerical accuracy to machine precision (~1e-15):
+- **NUMERICAL_PRECISION = 1e-14**: For linear algebra operations
+- **GATE_SYNTHESIS_PRECISION = 1e-12**: For full gate synthesis
+- Tests organized by component: constants, linear algebra, rotations, UMQ, synthesis, coupling
+- Parametrized tests for parameter sweeps
+
+## Performance Scaling
+
+| System Size | Hilbert Space | Memory | Synthesis Time |
+|-------------|---------------|--------|----------------|
+| 2 qubits | 4 | ~100 bytes | < 1 ms |
+| 3 qubits | 8 | ~500 bytes | ~5 ms |
+| 4 qubits | 16 | ~2 KB | ~20 ms |
+| 10 qubits (H2O) | 1024 | ~8 MB | ~5 s |
+
+Memory scales as O(2ⁿ), computation as O(8ⁿ).
+
+## Important Implementation Notes
+
+### Gate Synthesis Strategy
+
+The library uses basis rotations to convert arbitrary Pauli strings to X⊗X⊗...⊗X operations:
+- **Y → X**: Apply Rz(-π/2)
+- **Z → X**: Apply Ry(+π/2)
+- Then apply XXX...X operation (direct exponentiation or UMQ-Rz-UMQ)
+- Conjugate back: U = R† · XXX...X · R
+
+### TWA Numerical Stability
+
+From TWA_NUMERICAL_FIXES.md:
+- Energy scale matching critical for unit consistency
+- Dissipation rates must be rescaled to match Hamiltonian energy units
+- RK4 integration with Stratonovich interpretation
+- Spin length conservation checked (can renormalize if needed)
+- Noise variance: σ = sqrt(γ/dt) with safety checks for rate*dt > 1
+
+### Molecular Hamiltonian Structure
+
+H2 (4 qubits):
+- 18 Pauli terms total
+- Bond-dependent coefficients (e_nuc, t, mu, u, v)
+- Exact ground state energy at r=0.74 Å: ~-1.137 Hartree
+
+H2O (10 qubits):
+- 73 Pauli terms before grouping
+- Smart grouping reduces to 3 commuting operations
+- QEE compression from 14 to 10 qubits
+
+LiH (4 or 10 qubits):
+- 18 Pauli terms for minimal 4-qubit encoding
+- Nuclear repulsion + orbital energies + Coulomb + hopping
+- Equilibrium bond length: 1.5949 Å
+- Ground state energy (4q): ~-7.88 Hartree
+- VQE optimization with hardware-efficient ansatz (11n parameters for n layers)
+
+## File Organization
+
+Core library and synthesis:
+- `richerme_ion_analog.py` - Complete unified gate synthesis library
+- `richerme_ion_analog_legacy.py` - Original implementation (backward compatibility)
+- `richerme_ion_analog_cudaq.py` - GPU-accelerated version
+
+Trapped-ion simulators:
+- `rich_sim.py` - Full physics simulator
+- `rich_sim_h2.py`, `rich_sim_h2o.py`, `rich_sim_lih.py` - Molecular simulations
+- `rich_sim_h2_cudaq.py`, `rich_sim_h2o_cudaq.py` - GPU versions
+
+TWA framework:
+- `twa_framework.py` - CPU implementation
+- `cudaq_twa_framework.py` - GPU implementation
+- `rich_sim_h2_twa.py`, `rich_sim_h2o_twa.py`, `rich_sim_lih_twa.py` - CPU dissipative simulations
+- `cudaq_rich_sim_h2_twa.py`, `cudaq_rich_sim_h2o_twa.py`, `cudaq_rich_sim_lih_twa.py` - GPU dissipative simulations
+
+Tests and examples:
+- `tests/` - Comprehensive test suite (90+ tests across all modules)
+  - `test_richerme_ion_analog.py` - Core library (63 tests)
+  - `test_h2_gates.py`, `test_h2o_gates.py`, `test_lih_simulator.py` - Molecule tests (15 tests for LiH)
+  - `test_twa_implementation.py` - TWA validation (5 tests)
+- `examples/` - Demonstration scripts
+  - `demo_zxx.py` - Basic synthesis
+  - `demo_extended_features.py` - Advanced features
+  - `demo_lih_vqe.py` - LiH VQE demonstration
+
+Documentation:
+- `docs/` - Scientific documentation (consolidated)
+  - `ALGORITHMS.md` - Gate synthesis algorithms and interaction graph engineering
+  - `IMPLEMENTATIONS.md` - Molecular simulators (H2, H2O, LiH)
+  - `TWA.md` - Truncated Wigner Approximation theory and implementations
+- `README` - Main user documentation
+- `DEVELOPMENT` - Development guidelines and coding standards
+
+C++ implementation:
+- `cpp/` - Native C++ TWA simulators with Eigen
+
+## Scientific References
+
+1. **Richerme et al. (2025)** - "Multi-mode global driving techniques"
+   - Quantum Sci. Technol. 10, 035046
+   - Multi-mode coupling formula (Equation 4)
+
+2. **Kyprianidis et al. (2024)** - "Interaction graph engineering"
+   - New J. Phys. 26, 023033
+   - Accessibility criterion (Equation 14)
+   - Sinusoidal modes for equispaced ions (Equation 18)
+
+3. **Hosseinabadi et al. (2025)** - "User-friendly TWA for dissipative spin dynamics"
+   - PRX Quantum 6, 030344
+   - Discrete TWA protocol
+
+## Grant Acknowledgment
+
+This material is based upon work supported by the National Science Foundation under Grant No. OSI-2435255.
