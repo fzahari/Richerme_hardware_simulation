@@ -22,7 +22,7 @@ Thank you for your interest in contributing to this project! This document provi
 
 ### Code Standards
 
-This project follows **SOLID principles** and **Clean Code practices**. Please review [DEVELOPMENT.md](DEVELOPMENT.md) for comprehensive coding standards.
+This project follows **SOLID principles** and **Clean Code practices**. Please review DEVELOPMENT for comprehensive coding standards.
 
 Key principles:
 - **Small functions** (< 20 lines preferred)
@@ -116,7 +116,7 @@ def test_new_feature():
    w, v = np.linalg.eigh(H)
    ```
 
-3. **Update README.md** if adding major features
+3. **Update README** if adding major features
 
 ## Contribution Workflow
 
@@ -189,12 +189,12 @@ Then create a Pull Request on GitHub with:
 ### PR Checklist
 
 Before submitting, ensure:
-- [ ] All tests pass (`pytest tests/ -v`)
-- [ ] New functionality has tests
-- [ ] Code follows style guidelines
-- [ ] Documentation is updated
-- [ ] Commit messages are clear
-- [ ] No merge conflicts with main branch
+- All tests pass (pytest tests/ -v)
+- New functionality has tests
+- Code follows style guidelines
+- Documentation is updated
+- Commit messages are clear
+- No merge conflicts with main branch
 
 ### Review Process
 

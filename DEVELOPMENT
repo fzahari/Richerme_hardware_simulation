@@ -431,10 +431,10 @@ This project follows **SOLID principles** and **Clean Code** practices as outlin
 **"A class should have only one reason to change."**
 
 **Examples in this codebase**:
-- ✅ `IonTrapHardware`: Only stores hardware parameters
-- ✅ `_expm()`: Only does matrix exponentiation
-- ✅ `unitary_distance()`: Only computes distance metric
-- ❌ **Avoid**: A function that both computes AND visualizes results
+- Good: `IonTrapHardware` only stores hardware parameters
+- Good: `_expm()` only does matrix exponentiation
+- Good: `unitary_distance()` only computes distance metric
+- Avoid: A function that both computes AND visualizes results
 
 **Application**:
 ```python
@@ -459,8 +459,8 @@ def calculate_and_plot_coupling(B, omega, mus, Omegas, R):
 **"Open for extension, closed for modification."**
 
 **Examples**:
-- ✅ `TrappedIonSimulator` can be extended with new interaction types without modifying core
-- ✅ Gate synthesis methods use strategy pattern (XX, YY, ZZ gates)
+- Good: `TrappedIonSimulator` can be extended with new interaction types without modifying core
+- Good: Gate synthesis methods use strategy pattern (XX, YY, ZZ gates)
 
 **Application**:
 ```python
@@ -505,8 +505,8 @@ def optimize_mode_weights(simulator):
 **"Depend on abstractions, not concretions."**
 
 **Examples**:
-- ✅ Gate synthesis methods accept any matrix, not specific hardware objects
-- ✅ Functions work with numpy arrays (abstraction) not specific data structures
+- Good: Gate synthesis methods accept any matrix, not specific hardware objects
+- Good: Functions work with numpy arrays (abstraction) not specific data structures
 
 ### Clean Code Principles
 
@@ -662,18 +662,18 @@ def test_gate_properties():
 
 When writing or reviewing code in this project:
 
-- [ ] **Functions < 20 lines** and do ONE thing
-- [ ] **Descriptive names** (no abbreviations unless standard)
-- [ ] **No side effects** (pure functions preferred)
-- [ ] **≤ 3 function arguments** (use dataclasses for more)
-- [ ] **Type hints** on all public functions
-- [ ] **Docstrings** explain purpose, args, returns, examples
-- [ ] **No magic numbers** (use named constants)
-- [ ] **Tests** for new functionality
-- [ ] **Numerical precision** validated (≤ 1e-12 for gates)
-- [ ] **Comments** explain WHY, not WHAT
-- [ ] **Error messages** are descriptive
-- [ ] **Code formatted** with consistent style
+- Functions < 20 lines and do ONE thing
+- Descriptive names (no abbreviations unless standard)
+- No side effects (pure functions preferred)
+- 3 or fewer function arguments (use dataclasses for more)
+- Type hints on all public functions
+- Docstrings explain purpose, args, returns, examples
+- No magic numbers (use named constants)
+- Tests for new functionality
+- Numerical precision validated (1e-12 or better for gates)
+- Comments explain WHY, not WHAT
+- Error messages are descriptive
+- Code formatted with consistent style
 
 ### Naming Conventions
 
@@ -758,10 +758,10 @@ def optimize_mode_weights(
 ```
 
 This example demonstrates:
-- ✅ Clear, descriptive name
-- ✅ Type hints for all parameters
-- ✅ Comprehensive docstring with example
-- ✅ Input validation
-- ✅ Small helper functions for complex operations
-- ✅ Clear return type (dictionary with named keys)
-- ✅ References to source papers
+- Clear, descriptive name
+- Type hints for all parameters
+- Comprehensive docstring with example
+- Input validation
+- Small helper functions for complex operations
+- Clear return type (dictionary with named keys)
+- References to source papers

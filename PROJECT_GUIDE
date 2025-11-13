@@ -232,7 +232,7 @@ The library uses basis rotations to convert arbitrary Pauli strings to X⊗X⊗.
 
 ### TWA Numerical Stability
 
-From TWA_NUMERICAL_FIXES.md:
+Key considerations for TWA simulations:
 - Energy scale matching critical for unit consistency
 - Dissipation rates must be rescaled to match Hamiltonian energy units
 - RK4 integration with Stratonovich interpretation
@@ -288,9 +288,9 @@ Tests and examples:
 
 Documentation:
 - `docs/` - Scientific documentation (consolidated)
-  - `ALGORITHMS.md` - Gate synthesis algorithms and interaction graph engineering
-  - `IMPLEMENTATIONS.md` - Molecular simulators (H2, H2O, LiH)
-  - `TWA.md` - Truncated Wigner Approximation theory and implementations
+  - `ALGORITHMS` - Gate synthesis algorithms and interaction graph engineering
+  - `IMPLEMENTATIONS` - Molecular simulators (H2, H2O, LiH)
+  - `TWA` - Truncated Wigner Approximation theory and implementations
 - `README` - Main user documentation
 - `DEVELOPMENT` - Development guidelines and coding standards
 

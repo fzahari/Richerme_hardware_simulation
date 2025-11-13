@@ -2,8 +2,6 @@
 
 Python library for synthesizing quantum gates on trapped-ion analog hardware using the Richerme protocol.
 
-Note: This library has been consolidated from a dual-library structure (richerme_ion_analog.py + richerme_ion_analog_extended.py) into a single unified library (richerme_ion_analog.py) that includes all features. See [LIBRARY_CONSOLIDATION.md](docs/LIBRARY_CONSOLIDATION.md) for migration details.
-
 ## Overview
 
 This library implements quantum gate synthesis techniques for trapped-ion analog quantum computers, focusing on efficient construction of multi-qubit Pauli string unitaries using global Mølmer-Sørensen (MS) operations combined with single-qubit rotations.
@@ -14,9 +12,10 @@ Key Features:
 - Multi-mode global driving with interaction graph engineering
 - Accessibility checking and mode weight optimization
 - Full trapped-ion physics simulators
-- Molecular quantum chemistry applications (H2, H2O)
+- Molecular quantum chemistry applications (H2, H2O, LiH)
 - Truncated Wigner Approximation (TWA) for dissipative dynamics
 - GPU-accelerated TWA simulations (10-100x speedup)
+- C++ implementations for high-performance computing
 
 ## Installation
 
@@ -47,51 +46,51 @@ pip install -e .
 
 ```
 Richerme_Quantum_Hardware/
-├── richerme_ion_analog.py              # Complete gate synthesis library (unified)
+├── richerme_ion_analog.py              # Complete gate synthesis library
 ├── rich_sim.py                         # Full trapped-ion physics simulator
 ├── rich_sim_h2.py                      # H2 molecule simulation
 ├── rich_sim_h2o.py                     # H2O molecule simulation
+├── rich_sim_lih.py                     # LiH molecule simulation
 │
 ├── twa_framework.py                    # TWA framework for dissipative dynamics (CPU)
 ├── rich_sim_h2_twa.py                  # H2 with TWA dissipation (CPU)
 ├── rich_sim_h2o_twa.py                 # H2O with TWA dissipation (CPU)
-├── test_twa_implementation.py          # TWA validation tests
+├── rich_sim_lih_twa.py                 # LiH with TWA dissipation (CPU)
 │
-├── cudaq_twa_framework.py              # GPU-accelerated TWA framework (10-100x faster)
+├── cudaq_twa_framework.py              # GPU-accelerated TWA framework
 ├── cudaq_rich_sim_h2_twa.py            # GPU-accelerated H2 TWA
 ├── cudaq_rich_sim_h2o_twa.py           # GPU-accelerated H2O TWA
-├── demo_cudaq_speedup.py               # CPU vs GPU benchmark
+├── cudaq_rich_sim_lih_twa.py           # GPU-accelerated LiH TWA
 │
 ├── setup.py                            # Package configuration
 ├── requirements.txt                    # Dependencies (CPU)
 ├── requirements_gpu.txt                # GPU dependencies (+ CuPy)
-├── README.md                           # Main documentation
-├── DEVELOPMENT.md                      # Development guidelines
+├── README                              # Main documentation
+├── DEVELOPMENT                         # Development guidelines
+├── PROJECT_GUIDE                       # Repository structure and commands
 │
-├── docs/                               # Documentation
-│   ├── LIBRARY_EXPLANATION.md         # What do these libraries do?
-│   ├── LIBRARY_CONSOLIDATION.md       # Migration guide
-│   ├── INTEGRATION_GUIDE.md           # Integration guide
-│   ├── SIMULATOR_ANALYSIS.md          # Simulator comparison
-│   ├── H2_IMAGINARY_TIME_IMPROVEMENT.md # 2.7M× error reduction
-│   ├── H2_UPDATE_SUMMARY.md           # H2 updates
-│   ├── H2O_UPDATE_SUMMARY.md          # H2O updates
-│   ├── TWA_NUMERICAL_FIXES.md         # TWA stability improvements
-│   ├── TWA_README.md                  # TWA documentation (CPU & GPU)
-│   ├── CUDAQ_TWA_README.md            # GPU acceleration guide
-│   ├── CUDAQ_IMPLEMENTATION_SUMMARY.md # GPU implementation details
-│   └── CPP_TWA_SUMMARY.md             # C++ TWA implementation
+├── docs/                               # Scientific documentation
+│   ├── ALGORITHMS                      # Gate synthesis algorithms
+│   ├── IMPLEMENTATIONS                 # Molecular simulators (H2, H2O, LiH)
+│   └── TWA                             # TWA theory and implementations
 │
 ├── tests/                              # Test suite
 │   ├── test_richerme_ion_analog.py    # Core library tests (63 tests)
 │   ├── test_h2_gates.py               # H2 simulator tests
 │   ├── test_h2o_gates.py              # H2O simulator tests
+│   ├── test_lih_simulator.py          # LiH simulator tests (15 tests)
 │   └── test_twa_implementation.py     # TWA validation (5 tests)
 │
-└── examples/                           # Demonstration scripts
-    ├── demo_zxx.py                    # Basic synthesis demo
-    ├── demo_extended_features.py      # Extended features demo
-    └── demo_cudaq_speedup.py          # GPU speedup benchmark
+├── examples/                           # Demonstration scripts
+│   ├── demo_zxx.py                    # Basic synthesis demo
+│   ├── demo_extended_features.py      # Extended features demo
+│   └── demo_lih_vqe.py                # LiH VQE demonstration
+│
+└── cpp/                                # C++ implementations
+    ├── twa_framework.cpp/hpp          # C++ TWA core
+    ├── h2_twa_simulator.cpp/hpp       # C++ H2 TWA
+    ├── h2o_twa_simulator.cpp/hpp      # C++ H2O TWA
+    └── main_h2.cpp, main_h2o.cpp      # Executables
 ```
 
 ## Quick Start
@@ -208,7 +207,7 @@ Requirements for GPU:
 pip install cupy-cuda12x  # For CUDA 12.x (or cupy-cuda11x for CUDA 11.x)
 ```
 
-See [TWA_README.md](docs/TWA_README.md) and [CUDAQ_TWA_README.md](docs/CUDAQ_TWA_README.md) for details.
+See docs/TWA for complete documentation on TWA theory and implementations.
 
 ## Running Tests
 
@@ -219,6 +218,7 @@ pytest tests/ -v
 # Run specific test suite
 pytest tests/test_richerme_ion_analog.py -v  # 63 tests, ~0.5s
 pytest tests/test_h2_gates.py -v             # Hardware gate validation
+pytest tests/test_lih_simulator.py -v        # LiH tests
 
 # Quick test (minimal output)
 pytest tests/ -q
@@ -237,6 +237,9 @@ python examples/demo_zxx.py
 
 # Extended features (arbitrary Pauli, optimization, hardware params)
 python examples/demo_extended_features.py
+
+# LiH VQE demonstration
+python examples/demo_lih_vqe.py
 ```
 
 ## Hardware Specifications (171Yb+)
@@ -308,11 +311,11 @@ Memory scales as O(2ⁿ), computation as O(8ⁿ).
 
 ## Documentation
 
-- [LIBRARY_EXPLANATION.md](docs/LIBRARY_EXPLANATION.md): Comprehensive explanation of the core algorithms
-- [DEVELOPMENT.md](DEVELOPMENT.md): Development guidelines, coding standards, testing
-- [INTEGRATION_GUIDE.md](docs/INTEGRATION_GUIDE.md): Integration guide for extended features
-- [SIMULATOR_ANALYSIS.md](docs/SIMULATOR_ANALYSIS.md): Detailed simulator comparison
-- [H2_IMAGINARY_TIME_IMPROVEMENT.md](docs/H2_IMAGINARY_TIME_IMPROVEMENT.md): Error reduction in H2 ground state finding
+- docs/ALGORITHMS: Gate synthesis algorithms and interaction graph engineering
+- docs/IMPLEMENTATIONS: Molecular simulators (H2, H2O, LiH) with detailed theory
+- docs/TWA: Truncated Wigner Approximation theory and implementations (CPU, GPU, C++)
+- DEVELOPMENT: Development guidelines, coding standards, testing
+- PROJECT_GUIDE: Repository structure and common development commands
 
 ## Scientific References
 
@@ -327,12 +330,12 @@ Memory scales as O(2ⁿ), computation as O(8ⁿ).
 ## Contributing
 
 Contributions should follow:
-- SOLID principles (see DEVELOPMENT.md)
+- SOLID principles (see DEVELOPMENT)
 - Clean code practices (small functions, descriptive names, no side effects)
 - Test coverage (all new features must have tests)
 - Documentation (docstrings and examples)
 
-See [CONTRIBUTING.md](CONTRIBUTING.md) for detailed contribution guidelines.
+See CONTRIBUTING for detailed contribution guidelines.
 
 ## License
 
@@ -354,4 +357,4 @@ Based on the Richerme protocol for trapped-ion quantum gate synthesis. Implement
 
 ---
 
-For comprehensive project documentation, see [DEVELOPMENT.md](DEVELOPMENT.md)
+For comprehensive project documentation, see DEVELOPMENT and PROJECT_GUIDE
